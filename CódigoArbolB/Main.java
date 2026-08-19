@@ -15,9 +15,9 @@ public class Main {
         Arbol arbol = new Arbol(4);
         
         System.out.println("=== PRUEBA DE INSERCIÓN ===");
-        System.out.println("Insertando: 10, 20, 5, 6, 12, 30, 7, 17");
+        System.out.println("Insertando: 10, 20, 5, 6, 12, 30, 7, 17, 1, 15, 19");
         
-        int[] valores = {10, 20, 5, 6, 12, 30, 7, 17};
+        int[] valores = {10, 20, 5, 6, 12, 30, 7, 17, 1, 15, 19};
         for (int v : valores) {
             arbol.insertar(v);
             System.out.println("Después de insertar " + v + ":");
