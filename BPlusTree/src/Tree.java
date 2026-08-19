@@ -111,16 +111,44 @@ public class Tree {
             }
         }
     }
+    
+    private void updateCopy(Node current, int oldKey, int newKey) {
+        
+        //if is root
+        if (current == null) {
+            return;
+        }   
+        boolean updated = false;
+        
+        //Search the old key
+        for (int i = 0; i < current.getKeys().size(); i++) {
+            if (current.getKeys().get(i) == oldKey) {
+                current.getKeys().set(i, newKey); // set the new key
+                updated = true;
+                break;
+            }
+        }
+        
+        if (!updated) {
+            updateCopy(current.getFather(), oldKey, newKey);
+        }
+    }
 
     // Delete:
     public void delete(int key){
         Node leaf = searchLeaf(key);
-
         int position = searchPosition(leaf.getKeys(), key);
+        boolean hasCopy = (position == 0);
 
         if (position >= leaf.getKeys().size() || leaf.getKeys().get(position) != key){
             return;
         }
+        
+        Node leftmost = root;
+        while (!leftmost.getIsLeaf()) {
+            leftmost = leftmost.getChilds().get(0);
+        }
+        boolean isFirstNode = (leaf == leftmost);
 
         leaf.getKeys().remove(position);
 
@@ -130,6 +158,13 @@ public class Tree {
 
         if (leaf.getKeys().size() < minKeys){
             handleUnderflow(leaf);
+        }
+        
+        if (hasCopy && !isFirstNode) {
+            if (!leaf.getKeys().isEmpty()) {
+                int newSuccessor = leaf.getKeys().get(0);
+                updateCopy(leaf.getFather(), key, newSuccessor);
+            }
         }
     }
 
@@ -276,7 +311,7 @@ public class Tree {
 
         System.out.println(
             prefix +
-            (isLast ? "└── " : "├── ") +
+            (isLast ? "|-- " : "|--- ") +
             node.getKeys()
         );
 
@@ -288,7 +323,7 @@ public class Tree {
 
                 boolean lastChild = (i == children.size() - 1);
 
-                String newPrefix = prefix + (isLast ? "    " : "│   ");
+                String newPrefix = prefix + (isLast ? "    " : "|   ");
 
                 printTree(
                     children.get(i),
