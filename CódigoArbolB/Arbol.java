@@ -61,16 +61,16 @@ public class Arbol {
     }
 
     public void insertar(int clave) {
-        if (raiz.claves.size() == maxClaves()) {
+        boolean raizSobrepasada = insertarNoLleno(raiz, clave);
+        if (raizSobrepasada) {
             Nodo nuevaRaiz = new Nodo(false);
             nuevaRaiz.hijos.add(raiz);
             promoverClave(nuevaRaiz, 0);
             raiz = nuevaRaiz;
         }
-        insertarNoLleno(raiz, clave);
     }
 
-    private void insertarNoLleno(Nodo nodo, int clave){
+    private boolean insertarNoLleno(Nodo nodo, int clave){
         int comparador = nodo.claves.size() - 1;
         //Tiene ramificaciones?
         if(nodo.esHoja){
@@ -80,26 +80,25 @@ public class Arbol {
                 comparador --;
             }
             nodo.claves.set(comparador + 1, clave); //Se agrega la clave en la posición que le corresponde
+            return nodo.claves.size() > maxClaves();    
         } else {
             while (comparador >= 0 && clave < nodo.claves.get(comparador)) {
                 comparador--;
             }
             comparador++; //Índice por el que se baja
 
-            Nodo hijo = nodo.hijos.get(comparador);
-            if (hijo.claves.size() == maxClaves()) {
-                promoverClave(nodo,  comparador);
-                if (clave > nodo.claves.get(comparador)) {
-                    comparador++; // la clave promovida quedó a la izquierda, baja al nuevo hijo (derecha)
-                }
+            boolean hijoSobrepasado = insertarNoLleno(nodo.hijos.get(comparador), clave);
+            if (hijoSobrepasado) {
+                promoverClave(nodo, comparador);
             }
-            insertarNoLleno(nodo.hijos.get(comparador), clave);
+            return nodo.claves.size() > maxClaves();
         }
     }
 
     private void promoverClave(Nodo padre, int indice) {
         Nodo hijoLleno = padre.hijos.get(indice); //representa el nodo que se llenó y que se va a dividir
-        int mitad = hijoLleno.claves.size() / 2;
+        int clavesNodoLleno = hijoLleno.claves.size();
+        int mitad = (clavesNodoLleno % 2 == 0) ? (clavesNodoLleno / 2) - 1: clavesNodoLleno / 2;
         int claveMedia = hijoLleno.claves.get(mitad);
 
         // Nodo hermano derecho
