@@ -76,7 +76,7 @@ void printMatrix() {
 int main() {
     string line;
     cout << "*** Adyacent Matrix ***\n";
-    cout << "Enter a comant whit the relation of the form: comand NodeNode Weight.\nDisponible comands: create, delete, update and exit (for break the program).\nExample: ABr (Node1: A, Node2: B, Weight: r).";
+    cout << "Enter a comant whit the relation of the form: comand NodeNode Weight.\nDisponible comands: create, delete, update and exit (for break the program).\nExample: AB r (Node1: A, Node2: B, Weight: r).";
     while (true) {
         cout << "\n> ";
         getline(cin, line);
