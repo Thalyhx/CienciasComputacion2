@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package grafos;
+package grafos.representaciones;
+
+import grafos.Graph;
+import grafos.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
  *
  * @author Aleja
  */
-public class AdjacencyMatrixGraph extends Graph{
+public class AdjacencyMatrixGraph extends Graph {
     
     private List<List<String>> matrix;
     private List<String> orderedKeys;

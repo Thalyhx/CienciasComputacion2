@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package grafos;
+package grafos.representaciones;
+
+import grafos.Edge;
+import grafos.Graph;
+import grafos.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
  *
  * @author Juli
  */
-public class IncidenceMatrixGraph extends Graph{
+public class IncidenceMatrixGraph extends Graph {
     
     private List<List<Integer>> matriz;
     private List<String> nodosOrdenados;

@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package grafos;
+package grafos.representaciones;
+
+import grafos.Edge;
+import grafos.Graph;
+import grafos.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +18,9 @@ import java.util.Scanner;
  *
  * @author Nath
  */
-public class AdjacencyListGraph extends Graph{
+public class AdjacencyListGraph extends Graph {
     
-    private Map<String, List<Edge>> adyacencias;
+    private final Map<String, List<Edge>> adyacencias;
     
     public AdjacencyListGraph() {
         super();
@@ -210,5 +214,24 @@ public class AdjacencyListGraph extends Graph{
         }
         System.out.println("-------------------------------------------------------------------");
     }
-    
+
+    public Map<String, Double> getNeighborsWithWeights(String nodeKey) {
+        Map<String, Double> neighborsWithWeights = new HashMap<>();
+        if (!adyacencias.containsKey(nodeKey)) {
+            return neighborsWithWeights;
+        }
+
+        for (Edge arista : adyacencias.get(nodeKey)) {
+            neighborsWithWeights.put(arista.getEnd().getKey(), arista.getWeight());
+        }
+        return neighborsWithWeights;
+    }
+
+    public List<Edge> getAllEdges() {
+        List<Edge> allEdges = new ArrayList<>();
+        for (List<Edge> edgesList : adyacencias.values()) {
+            allEdges.addAll(edgesList);
+        }
+        return allEdges;
+    }
 }
