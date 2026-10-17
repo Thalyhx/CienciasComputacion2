@@ -172,23 +172,28 @@ public class AdjacencyMatrixGraph extends Graph {
         return vecinos;
     }
     
-    @Override
-    public void showGraph() {
-        System.out.println("\n--- ADJACENT MATRIX ---");
-        System.out.print("   ");
-        for (String n : orderedKeys) {
-            System.out.print(n + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < orderedKeys.size(); i++) {
-            System.out.print(orderedKeys.get(i) + "  ");
-            for (int j = 0; j < orderedKeys.size(); j++) {
-                System.out.print(matrix.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("----------------------------------------------------------");
+    public List<List<String>> getMatrix() {
+        return matrix;
     }
     
+    @Override
+        public void showGraph() {
+            System.out.println("\n--- ADJACENT MATRIX ---");
+
+            System.out.printf("%-6s", "");
+            for (String n : orderedKeys) {
+                System.out.printf("%-6s", n);
+            }
+            System.out.println();
+
+            for (int i = 0; i < orderedKeys.size(); i++) {
+                System.out.printf("%-6s", orderedKeys.get(i));
+                for (int j = 0; j < orderedKeys.size(); j++) {
+                    String val = matrix.get(i).get(j);
+                    System.out.printf("%-6s", val);
+                }
+                System.out.println();
+            }
+            System.out.println("----------------------------------------------------------");
+        }
 }
