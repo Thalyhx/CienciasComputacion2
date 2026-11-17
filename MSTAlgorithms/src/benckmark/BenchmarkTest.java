@@ -17,8 +17,7 @@ import metrics.ExecutionMetrics;
 import metrics.MetricsCollector;
 import model.Graph;
 
-// Experimentos por lotes: genera grafos de distintos tamaños y densidades, corre Prim y Kruskal
-// sobre cada uno y muestra cuál fue mejor. Se ejecuta aparte del Main (que es de entrada manual).
+// Experimentos
 public class BenchmarkTest {
 
     private static final long SEED = 42L;
